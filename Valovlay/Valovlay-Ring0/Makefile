@@ -5,11 +5,11 @@ TARGET          = memory.efi
 
 EFIINC          = /usr/include/efi
 EFIINCS         = -I$(EFIINC) -I$(EFIINC)/$(ARCH) -I$(EFIINC)/protocol
-
-CFLAGS          = $(EFIINCS) -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -Wall 
-
 LIB32           = /usr/lib32
 LIB64           = /usr/lib
+
+CFLAGS          = $(EFIINCS) -fno-stack-protector -fpic \
+		  -fshort-wchar -mno-red-zone -Wall
 
 ifeq ($(ARCH),x86_64)
   CFLAGS += -DEFI_FUNCTION_WRAPPER
@@ -31,7 +31,7 @@ LDFLAGS         = -nostdlib -znocombreloc -T $(EFI_LDS) -shared \
 all: $(TARGET)
 
 memory.so: $(OBJS)
-	ld $(LDFLAGS) $(OBJS) -o $@ -lefi -lgnuefi
+	ld $(LDFLAGS) $(OBJS) -s -o $@ -lefi -lgnuefi
 
 %.efi: %.so
 	objcopy -j .text -j .sdata -j .data -j .dynamic \
