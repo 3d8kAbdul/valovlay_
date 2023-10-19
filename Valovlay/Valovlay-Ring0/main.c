@@ -298,7 +298,7 @@ EFI_STATUS efi_main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTable)
     LoadedImage->Unload = (EFI_IMAGE_UNLOAD)efi_unload;
 
     // Create global event for VirtualAddressMap
-    status = BS->CreateEventEx(EVT_NOTIFY_SIGNAL, TPL_NOTIFY, SetVirtualAddressMapEvent, NULL, &NotifyEvent);
+    status = BS->CreateEventEx(EVT_NOTIFY_SIGNAL, TPL_NOTIFY, SetVirtualAddressMapEvent, NULL, VirtualGuid, &NotifyEvent);
 
     // Return if event create failed
     if (EFI_ERROR(status)) {
@@ -307,7 +307,7 @@ EFI_STATUS efi_main(IN EFI_HANDLE ImageHandle, IN EFI_SYSTEM_TABLE* SystemTable)
     }
 
     // Create global event for ExitBootServices
-    status = BS->CreateEventEx(EVT_NOTIFY_SIGNAL, TPL_NOTIFY, ExitBootServicesEvent, NULL, &ExitEvent);
+    status = BS->CreateEventEx(EVT_NOTIFY_SIGNAL, TPL_NOTIFY, ExitBootServicesEvent, NULL, ExitGuid, &ExitEvent);
 
     // Return if event create failed (yet again)
     if (EFI_ERROR(status)) {
