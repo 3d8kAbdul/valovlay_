@@ -2,7 +2,7 @@
 #include "dummy.h"
 
 // Defines used to check if call is really coming from client
-#define VARIABLE_NAME L"Bifeldy-Driver"
+#define VARIABLE_NAME L"W4Fke1adf"
 #define baseOperation 0x81
 #define COMMAND_MAGIC baseOperation * 0x45 * 0x01
 
